@@ -1,0 +1,69 @@
+/**
+ * Component : Video thumbnail
+ */
+
+.video-thumbnail {
+    position: relative;
+    display: block;
+    float: left;
+    margin: 10px;
+    opacity: 0.9;
+
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.8);
+
+    backface-visibility: hidden; // Avoid jagged edges
+
+    text-decoration: none;
+
+    &:before, &:after {
+        display: block;
+        height: 15px;
+        content: "";
+        background: url("../images/camera-film-pattern.png");
+        background-repeat: repeat-x;
+        background-size: auto 15px;
+        background-position: center;
+    }
+
+    &:hover {
+        transform: rotateZ(0deg) scale(1.1) !important;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        background: radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.15) 0%,rgba(229,229,229,0) 100%);
+
+        z-index: 1;
+    }
+
+    .thumbnail-container {
+        position: relative;
+        background: black;
+        text-align: center;
+        height: 130px;
+        padding: 5px;
+
+        .thumbnail {
+            min-width: 160px;
+            height: 100%;
+            border-radius: 3px;
+            background: lighten(black, 10%);
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 10px;
+            left: 5px;
+            right: 5px;
+            font-family: $handwritten-font;
+            font-size: 14px;
+            color: white;
+            text-shadow: 0px 0px 2px black;
+        }
+    }
+}

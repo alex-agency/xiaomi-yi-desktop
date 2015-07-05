@@ -1,0 +1,16 @@
+/**
+ * Theme variables
+ */
+
+// Color scheme
+$bg-color: #333333;
+$nav-color: lighten($bg-color, 5%);
+$text-color: #FFFFFF;
+$menu-hover-color: #F57921;
+$connection-active-color: #59d086;
+$connection-inactive-color: #d05959;
+
+// Fonts
+$main-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$title-font: 'Quicksand', sans-serif;
+$handwritten-font: 'Architects Daughter', cursive;

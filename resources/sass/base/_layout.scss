@@ -1,0 +1,14 @@
+/**
+ * Main layout
+ */
+
+body {
+    background-color: $bg-color;
+
+    font-family: $main-font;
+    color: $text-color;
+}
+
+.panel {
+    padding: 10px;
+}

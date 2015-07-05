@@ -1,0 +1,36 @@
+/**
+ * Component : Menu
+ */
+
+#main-header {
+    background: linear-gradient(to bottom, darken($nav-color, 5%) 0%,$nav-color 100%);
+    box-shadow: 0px 0px 3px black;
+
+    h1 {
+        display: inline-block;
+        font-family: $title-font;
+        font-size: 15px;
+        margin-left: 5px;
+
+        .logo {
+            display: inline-block;
+
+            width: 40px;
+            height: 40px;
+
+            vertical-align:middle;
+
+            margin-right: 10px;
+
+            background: url("../images/xiaomi-yi-logo.png");
+            background-size: 100% 100%;
+            background-position: center center;
+        }
+    }
+
+    .status-widget {
+        float: right;
+        height: 50px;
+        margin-right: 10px;
+    }
+}

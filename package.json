@@ -1,0 +1,55 @@
+{
+  "name": "xiaomi-yi-desktop",
+  "version": "0.1.0",
+  "description": "Desktop app for Xiaomi Yi action camera",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lyrkan/xiaomi-yi-desktop"
+  },
+  "keywords": [
+    "xiaomi",
+    "yi",
+    "action",
+    "cam",
+    "desktop"
+  ],
+  "author": "Vincent LE BIANNIC <vincent.lebiannic@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Lyrkan/xiaomi-yi-desktop/issues"
+  },
+  "dependencies": {
+    "react": "~0.13.3",
+    "react-router": "~0.13.3",
+    "molten": "~0.4.3",
+    "octicons": "~2.2.0",
+    "video.js": "~4.12.10",
+    "nconf": "~0.7.1",
+    "engine.io-client": "~1.5.1",
+    "fs": "0.0.2",
+    "mcfly": "0.0.10",
+    "classnames": "~2.1.3"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-sass": "~1.0.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-browserify": "~3.8.0",
+    "grunt-env": "~0.4.4",
+    "browserify": "~10.2.4",
+    "watchify": "~3.2.3",
+    "reactify": "~1.1.1",
+    "grunt-contrib-copy": "~0.8.0"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
+  "scripts": {
+    "start": "grunt",
+    "build": "grunt build"
+  }
+}

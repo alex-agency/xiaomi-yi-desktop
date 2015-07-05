@@ -1,0 +1,59 @@
+/**
+ * Component : Photo thumbnail
+ */
+
+.photo-thumbnail {
+    position: relative;
+
+    display: block;
+    width: 176px;
+    height: 214px;
+
+    float: left;
+
+    margin: 10px;
+
+    padding-top: 9px;
+    padding-left: 9px;
+    padding-right: 9px;
+
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.8);
+
+    text-decoration: none;
+
+    backface-visibility: hidden; // Avoid jagged edges
+
+    &:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        background: radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.25) 0%,rgba(229,229,229,0) 100%);
+    }
+
+    &:hover {
+        transform: rotateZ(0deg) scale(1.1) !important;
+    }
+
+    .thumbnail {
+        display: block;
+        height: 158px;
+        margin: auto;
+        background: black;
+    }
+
+    .caption {
+        width: 158px;
+        margin :auto;
+        margin-top: 10px;
+        font-family: $handwritten-font;
+        font-size: 14px;
+        color: black;
+        text-align: center;
+    }
+}
