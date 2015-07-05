@@ -10,7 +10,7 @@ function setConnected(connected) {
     _connected = connected;
 };
 
-var StatusStore = mcFly.createStore({
+var ConnectionErrorStore = mcFly.createStore({
     isConnected: function() {
         return _connected;
     }
@@ -26,9 +26,9 @@ var StatusStore = mcFly.createStore({
             return true;
     }
 
-    StatusStore.emitChange();
+    ConnectionErrorStore.emitChange();
 
     return true;
 });
 
-module.exports = StatusStore;
+module.exports = ConnectionErrorStore;

@@ -2,20 +2,9 @@
 
 var app = require('app');
 var BrowserWindow = require('browser-window');
-var fs = require('fs');
-var nconf = require('nconf');
 
 // Window object global reference
 var mainWindow = null;
-
-// Load configuration
-nconf.env();
-nconf.argv();
-nconf.file({ file: 'config/config.json' });
-nconf.defaults({
-    'ip': '192.168.42.1',
-    'port': 7878
-});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {

@@ -67,7 +67,7 @@ module.exports = function(grunt) {
                     'resources/fonts/**',
                     'resources/images/**'
                 ],
-                tasks: ['sass:dev', 'copy:resources', 'copy:resources']
+                tasks: ['sass:dev', 'copy:resources']
             }
         }
     });

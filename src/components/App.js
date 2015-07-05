@@ -7,6 +7,7 @@ var RouteHandler = Router.RouteHandler;
 // Components
 var Header = require('./views/Header');
 var Menu = require('./views/Menu');
+var ConnectionError = require('./views/ConnectionError');
 
 var App = React.createClass({
     render() {
@@ -14,6 +15,7 @@ var App = React.createClass({
             <div id='xiaomi-yi-app' className="grid rows split50">
                 <Header/>
                 <div className="content">
+                    <ConnectionError/>
                     <div className="grid columns split50">
                         <Menu/>
                         <div id='route-handler' className="content">

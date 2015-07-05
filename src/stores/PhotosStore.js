@@ -2,6 +2,8 @@
 
 var mcFly = require('../flux/mcFly');
 
+var PhotosConstants = require('../constants/PhotosConstants');
+
 var _photos = [];
 
 function addPhoto(path) {
@@ -27,13 +29,13 @@ var PhotosStore = mcFly.createStore({
     }
 }, function(payload){
     switch(payload.actionType) {
-        case 'ADD':
+        case PhotosConstants.PHOTOS_ADD:
             addPhoto(payload.path);
             break;
-        case 'REMOVE':
+        case PhotosConstants.PHOTOS_REMOVE:
             removePhoto(payload.path);
             break;
-        case 'CLEAR':
+        case PhotosConstants.PHOTOS_CLEAR:
             clearPhotos();
             break;
         default:

@@ -1,0 +1,63 @@
+/**
+ * Component : Connection error message
+ */
+
+#connection-error {
+    display: none;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    z-index:999;
+
+    background: black;
+    opacity: 0.8;
+
+    padding-top: 60px;
+    padding-left: 60px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+
+    &.disconnected {
+        display: block;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 30px;
+        line-height: 30px;
+
+        color: $connection-inactive-color;
+    }
+
+    .help {
+        width: 500px;
+        margin: auto;
+        margin-top: 30px;
+
+        text-align: justify;
+
+        p, ul {
+            margin-top: 20px;
+        }
+
+        ul {
+            margin-left: 30px;
+            list-style-type: disc;
+
+            li {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    img {
+        display: block;
+        margin: auto;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}

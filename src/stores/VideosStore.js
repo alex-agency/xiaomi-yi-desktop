@@ -2,6 +2,8 @@
 
 var mcFly = require('../flux/mcFly');
 
+var VideosConstants = require('../constants/VideosConstants');
+
 var _videos = [];
 
 function addVideo(path) {
@@ -27,13 +29,13 @@ var VideosStore = mcFly.createStore({
     }
 }, function(payload){
     switch(payload.actionType) {
-        case 'ADD':
+        case VideosConstants.VIDEOS_ADD:
             addVideo(payload.path);
             break;
-        case 'REMOVE':
+        case VideosConstants.VIDEOS_REMOVE:
             removeVideo(payload.path);
             break;
-        case 'CLEAR':
+        case VideosConstants.VIDEOS_CLEAR:
             clearVideos();
             break;
         default:

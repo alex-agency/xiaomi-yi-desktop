@@ -2,22 +2,24 @@
 
 var mcFly = require('../flux/mcFly');
 
+var PhotosConstants = require('../constants/PhotosConstants');
+
 var PhotosAction = mcFly.createActions({
     addPhoto: function(path) {
         return {
-            actionType: 'ADD',
+            actionType: PhotosConstants.PHOTOS_ADD,
             path: path
         }
     },
     removePhoto: function(path) {
         return {
-            actionType: 'REMOVE',
+            actionType: PhotosConstants.PHOTOS_REMOVE,
             path: path
         }
     },
     clearPhotos: function() {
         return {
-            actionType: 'CLEAR'
+            actionType: PhotosConstants.PHOTOS_CLEAR
         }
     }
 });

@@ -24,7 +24,6 @@ var Status = React.createClass({
     },
 
     render() {
-
         var widgetClasses = classNames({
             'status-widget': true,
             'connected': this.state.connected
