@@ -7,8 +7,12 @@ $bg-color: #333333;
 $nav-color: lighten($bg-color, 5%);
 $text-color: #FFFFFF;
 $menu-hover-color: #F57921;
-$connection-active-color: #59d086;
-$connection-inactive-color: #d05959;
+$connection-active-color: #59D086;
+$connection-inactive-color: #D05959;
+$battery-unknown: #949494;
+$battery-blue: #8794FF;
+$battery-purple: #D68FFF;
+$battery-red: #ff5a5a;
 
 // Fonts
 $main-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;

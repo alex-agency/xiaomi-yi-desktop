@@ -3,6 +3,9 @@
 var remote = window.require('remote');
 var net = remote.require('net');
 
+var PacketHandler = require('./PacketHandler');
+var AbstractRequest = require('./packets/AbstractRequest');
+
 // Actions
 var ConnectionActions = require('../actions/ConnectionActions');
 
@@ -10,7 +13,8 @@ var CameraConnection = function() {
     this._socket = undefined;
     this._ip = undefined;
     this._port = undefined;
-}
+    this._token = 0;
+};
 
 CameraConnection.prototype.initialize = function(options) {
     console.log("CameraConnection: Initialize");
@@ -27,7 +31,7 @@ CameraConnection.prototype.initialize = function(options) {
     this._port = options.port;
 
     return this;
-}
+};
 
 CameraConnection.prototype.start = function() {
     console.log("CameraConnection: Start");
@@ -43,16 +47,28 @@ CameraConnection.prototype.start = function() {
     }
 
     this._socket = new net.Socket();
+    this._socket.setEncoding('utf8');
 
     // On connect : Notify status store and ask for a token
     this._socket.on('connect', function() {
         console.log("CameraConnection: Connected");
+
+        // Reset token
+        this._token = 0;
+
+        // Import CameraCommands here to avoid circular references
+        var CameraCommands = require('./CameraCommands');
+        CameraCommands.startSession(self);
+
+        // Notify stores
         ConnectionActions.setConnected(true);
     });
 
     // On data : Handle received packet
     this._socket.on('data', function(data) {
-        console.log("CameraConnection: Data received", data);
+        if (!PacketHandler.handle(data)) {
+            console.log("CameraConnection: Unknown packet received", data);
+        }
     });
 
     // On error
@@ -63,6 +79,8 @@ CameraConnection.prototype.start = function() {
     // On close : Notify status store and schedule a reconnection
     this._socket.on('close', function() {
         console.log("CameraConnection: Connection closed");
+
+        // Notify stores
         ConnectionActions.setConnected(false);
 
         // Auto reconnect
@@ -80,6 +98,23 @@ CameraConnection.prototype.start = function() {
     this._socket.connect(this._port, this._ip);
 
     return this;
-}
+};
+
+CameraConnection.prototype.setToken = function(token) {
+    this._token = token;
+
+    return this;
+};
+
+CameraConnection.prototype.send = function(request) {
+    if (!(request instanceof AbstractRequest)) {
+        throw new Error('CameraConnection: CameraConnection.send requires an AbstractRequest as a parameter');
+    }
+
+    if (this._socket) {
+        var packet = request.setToken(this._token).getPacket();
+        this._socket.write(packet);
+    }
+};
 
 module.exports = new CameraConnection();
