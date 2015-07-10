@@ -21,6 +21,23 @@ var VideosActions = mcFly.createActions({
         return {
             actionType: VideosConstants.VIDEOS_CLEAR
         }
+    },
+    recordStart: function() {
+        return {
+            actionType: VideosConstants.VIDEOS_RECORD_START
+        }
+    },
+    recordComplete: function(path) {
+        return {
+            actionType: VideosConstants.VIDEOS_RECORD_COMPLETE,
+            path: path
+        }
+    },
+    recordTimeUpdate: function(elapsedTime) {
+        return {
+            actionType: VideosConstants.VIDEOS_RECORD_TIME,
+            elapsedTime: elapsedTime
+        }
     }
 });
 

@@ -4,8 +4,8 @@ var AbstractResponse = require('../AbstractResponse');
 
 /**
  * Packet : Battery update
- * Description : Sent by the camera after a battery level change
- * Opcode : 7
+ * Description : Sent by the camera after a battery level change or a "Get Battery Level" request
+ * Opcode : 7 or 13 (with 'battery' data type)
  */
 var BatteryUpdateResponse = function() {
     AbstractResponse.call(this);
@@ -15,7 +15,7 @@ BatteryUpdateResponse.prototype = Object.create(AbstractResponse.prototype);
 BatteryUpdateResponse.prototype.constructor = BatteryUpdateResponse;
 
 BatteryUpdateResponse.prototype.matches = function() {
-    return (this._data.msg_id == 7 && this._data.type == 'battery' &&  this._data.param);
+    return ((this._data.msg_id == 7 || this._data.msg_id == 13) && this._data.type == 'battery' &&  this._data.param);
 };
 
 BatteryUpdateResponse.prototype.process = function() {

@@ -6,9 +6,42 @@
     font-size: 12px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 
-    .status-icon {
-        margin-right: 5px;
-        color: $connection-inactive-color;
+    .recording-status {
+        display: none;
+        margin-right: 20px;
+        line-height: 16px;
+
+        &.recording {
+            display: inline-block;
+        }
+
+        > span {
+            vertical-align: middle;
+        }
+
+        @keyframes recording-icon-blink {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .recording-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 5px;
+            background-color: $recording-icon-color;
+            border-radius: 8px;
+
+            animation-name: recording-icon-blink;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
     }
 
     .battery-level {
@@ -27,22 +60,26 @@
         background-position:  center -117px;
 
         font-size: 10px;
-        color: $battery-unknown;
+        color: $battery-unknown-color;
         text-shadow: none;
+
+        &.connected {
+            display: inline-block;
+        }
 
         &.blue {
             background-position: center 0px;
-            color: $battery-blue;
+            color: $battery-blue-color;
         }
 
         &.purple {
             background-position: center -39px;
-            color: $battery-purple;
+            color: $battery-purple-color;
         }
 
         &.red {
             background-position: center -78px;
-            color: $battery-red;
+            color: $battery-red-color;
         }
 
         .label {
@@ -55,13 +92,23 @@
         }
     }
 
-    &.connected {
-        .status-icon {
-            color: $connection-active-color;
+    .connection-status {
+        display: inline-block;
+        line-height: 16px;
+
+        > span {
+            vertical-align: middle;
         }
 
-        .battery-level {
-            display: inline-block;
+        &.connected {
+            .status-icon {
+                color: $connection-active-color;
+            }
+        }
+
+        .status-icon {
+            margin-right: 5px;
+            color: $connection-inactive-color;
         }
     }
 }

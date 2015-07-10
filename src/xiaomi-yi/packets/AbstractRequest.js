@@ -26,9 +26,9 @@ AbstractRequest.prototype.getPacket = function() {
         packet.msg_id = this._msgId;
     }
 
-    this._params.forEach(function(element, index) {
-        packet[index] = element;
-    });
+    for (var key in this._params) {
+        packet[key] = this._params[key];
+    }
 
     return JSON.stringify(packet);
 };

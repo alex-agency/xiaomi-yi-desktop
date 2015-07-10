@@ -21,6 +21,12 @@ var PhotosAction = mcFly.createActions({
         return {
             actionType: PhotosConstants.PHOTOS_CLEAR
         }
+    },
+    photoTaken: function(path) {
+        return {
+            actionType: PhotosConstants.PHOTOS_PHOTO_TAKEN,
+            path: path
+        }
     }
 });
 

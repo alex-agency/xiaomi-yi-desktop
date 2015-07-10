@@ -25,6 +25,13 @@ StartSessionResponse.prototype.process = function() {
     // Send new token to the CameraConnection
     var CameraConnection = require('../../CameraConnection');
     CameraConnection.setToken(token);
+
+    // Send a GetBatteryLevel request
+    var CameraCommands = require('../../CameraCommands');
+    CameraCommands.getBatteryLevel(CameraConnection);
+
+    // Send GetSettings request
+    CameraCommands.getSettings(CameraConnection);
 };
 
 module.exports = StartSessionResponse;

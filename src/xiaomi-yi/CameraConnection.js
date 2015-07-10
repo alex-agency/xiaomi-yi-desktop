@@ -14,6 +14,7 @@ var CameraConnection = function() {
     this._ip = undefined;
     this._port = undefined;
     this._token = 0;
+    this._buffer = '';
 };
 
 CameraConnection.prototype.initialize = function(options) {
@@ -66,8 +67,30 @@ CameraConnection.prototype.start = function() {
 
     // On data : Handle received packet
     this._socket.on('data', function(data) {
-        if (!PacketHandler.handle(data)) {
-            console.log("CameraConnection: Unknown packet received", data);
+        // Some packets are not received in only one pass so we have to assemble them...
+        try {
+            // If the buffer is a valid JSON string replace the current buffer
+            JSON.parse(data);
+            self._buffer = data;
+        }
+        catch(e) {
+            // No JSON, possibly part of another packet, append it to current buffer
+            self._buffer += data;
+        }
+
+        // Check if the buffer is a valid JSON string
+        try {
+            JSON.parse(self._buffer);
+
+            if (!PacketHandler.handle(self._buffer)) {
+                console.log("CameraConnection: Data not fully handled", data);
+            }
+
+            // Clear buffer
+            self._buffer = '';
+        }
+        catch(e) {
+            // Ignore buffer and hope the next packet fixes it
         }
     });
 
