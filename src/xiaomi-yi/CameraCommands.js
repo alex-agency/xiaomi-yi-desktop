@@ -1,22 +1,29 @@
 'use strict';
 
-var CameraCommands = function() {
-};
+import GetBatteryLevelRequest from './packets/requests/GetBatteryLevelRequest';
+import GetSettingsRequest from './packets/requests/GetSettingsRequest';
+import GetSpaceRequest from './packets/requests/GetSpaceRequest';
+import StartSessionRequest from './packets/requests/StartSessionRequest';
 
-CameraCommands.prototype.getBatteryLevel = function(connection) {
-    connection.send(new (require('./packets/requests/GetBatteryLevelRequest')));
-};
+class CameraCommands {
+    constructor() {
+    }
 
-CameraCommands.prototype.getSettings = function(connection) {
-    connection.send(new (require('./packets/requests/GetSettingsRequest')));
-};
+    getBatteryLevel(connection) {
+        connection.send(new GetBatteryLevelRequest());
+    }
 
-CameraCommands.prototype.getSpace = function(connection, type) {
-    connection.send(new (require('./packets/requests/GetSpaceRequest')));
-};
+    getSettings(connection) {
+        connection.send(new GetSettingsRequest());
+    }
 
-CameraCommands.prototype.startSession = function(connection) {
-    connection.send(new (require('./packets/requests/StartSessionRequest')));
-};
+    getSpace(connection, type) {
+        connection.send(new GetSpaceRequest(type));
+    }
 
-module.exports = new CameraCommands();
+    startSession(connection) {
+        connection.send(new StartSessionRequest());
+    }
+}
+
+export default new CameraCommands();

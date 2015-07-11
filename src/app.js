@@ -1,12 +1,13 @@
 'use strict';
 
-var remote = window.require('remote');
+const remote = window.require('remote');
 
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
 
-var nconf = remote.require('nconf');
-var CameraConnection = require('./xiaomi-yi/CameraConnection');
+const nconf = remote.require('nconf');
+
+import CameraConnection from './xiaomi-yi/CameraConnection';
 
 /**
  * Load configuration
@@ -22,17 +23,17 @@ nconf.defaults({
 /**
  * Components
  */
-var App = require('./components/App');
-var Home = require('./components/views/Home');
-var Videos = require('./components/views/Videos');
-var Photos = require('./components/views/Photos');
-var Settings = require('./components/views/Settings');
+const App = require('./components/App');
+const Home = require('./components/views/Home');
+const Videos = require('./components/views/Videos');
+const Photos = require('./components/views/Photos');
+const Settings = require('./components/views/Settings');
 
 /**
  * Routes
  */
-var Route = Router.Route;
-var routes = (
+const Route = Router.Route;
+const routes = (
     <Route handler={App}>
         <Router.DefaultRoute name="home" handler={Home}/>
         <Route name="videos" handler={Videos}/>
@@ -44,7 +45,6 @@ var routes = (
 Router.run(routes, Router.HashLocation, function(Root){
     React.render(<Root/>, document.body);
 });
-
 
 // Start CameraConnection
 CameraConnection.initialize({

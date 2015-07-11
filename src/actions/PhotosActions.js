@@ -1,33 +1,33 @@
 'use strict';
 
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var PhotosConstants = require('../constants/PhotosConstants');
+import {PHOTOS_ADD, PHOTOS_REMOVE, PHOTOS_PHOTO_TAKEN} from '../constants/PhotosConstants';
 
-var PhotosAction = mcFly.createActions({
+const PhotosAction = mcFly.createActions({
     addPhoto: function(path) {
         return {
-            actionType: PhotosConstants.PHOTOS_ADD,
+            actionType: PHOTOS_ADD,
             path: path
         }
     },
     removePhoto: function(path) {
         return {
-            actionType: PhotosConstants.PHOTOS_REMOVE,
+            actionType: PHOTOS_REMOVE,
             path: path
         }
     },
     clearPhotos: function() {
         return {
-            actionType: PhotosConstants.PHOTOS_CLEAR
+            actionType: PHOTOS_CLEAR
         }
     },
     photoTaken: function(path) {
         return {
-            actionType: PhotosConstants.PHOTOS_PHOTO_TAKEN,
+            actionType: PHOTOS_PHOTO_TAKEN,
             path: path
         }
     }
 });
 
-module.exports = PhotosAction;
+export default PhotosAction;

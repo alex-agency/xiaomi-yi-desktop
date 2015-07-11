@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
-var Settings = React.createClass({
+const Settings = React.createClass({
     render() {
         return (
             <div className="panel"></div>
@@ -10,4 +10,4 @@ var Settings = React.createClass({
     }
 });
 
-module.exports = Settings;
+export default Settings;

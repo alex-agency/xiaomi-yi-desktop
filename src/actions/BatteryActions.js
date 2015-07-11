@@ -1,16 +1,16 @@
 'use strict';
 
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var BatteryConstants = require('../constants/BatteryConstants');
+import {BATTERY_UPDATE} from '../constants/BatteryConstants';
 
-var BatteryAction = mcFly.createActions({
+const BatteryAction = mcFly.createActions({
     setBatteryLevel: function(level) {
         return {
-            actionType: BatteryConstants.BATTERY_UPDATE,
+            actionType: BATTERY_UPDATE,
             level: level
         }
     }
 });
 
-module.exports = BatteryAction;
+export default BatteryAction;

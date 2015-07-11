@@ -1,15 +1,15 @@
 'use strict';
 
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var ConnectionConstants = require('../constants/ConnectionConstants');
+import {CONNECTION_CONNECTED, CONNECTION_DISCONNECTED} from '../constants/ConnectionConstants';
 
-var ConnectionAction = mcFly.createActions({
+const ConnectionAction = mcFly.createActions({
     setConnected: function(connected) {
         return {
-            actionType: connected ? ConnectionConstants.CONNECTION_CONNECTED : ConnectionConstants.CONNECTION_DISCONNECTED
+            actionType: connected ? CONNECTION_CONNECTED : CONNECTION_DISCONNECTED
         }
     }
 });
 
-module.exports = ConnectionAction;
+export default ConnectionAction;

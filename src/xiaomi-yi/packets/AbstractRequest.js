@@ -3,34 +3,34 @@
 /**
  * Describe a packet sent by the app
  */
-var AbstractRequest = function(msgId, params) {
-    this._token = undefined;
-    this._msgId = msgId;
-    this._params = params || [];
-};
-
-AbstractRequest.prototype.setToken = function(token) {
-    this._token = token;
-
-    return this;
-};
-
-AbstractRequest.prototype.getPacket = function() {
-    var packet = {};
-
-    if (this._token !== undefined) {
-        packet.token = this._token;
+ export default class AbstractRequest {
+    constructor(msgId, params) {
+        this._token = undefined;
+        this._msgId = msgId;
+        this._params = params || [];
     }
 
-    if (this._msgId) {
-        packet.msg_id = this._msgId;
+    setToken(token) {
+        this._token = token;
+
+        return this;
     }
 
-    for (var key in this._params) {
-        packet[key] = this._params[key];
+    getPacket() {
+        let packet = {};
+
+        if (this._token !== undefined) {
+            packet.token = this._token;
+        }
+
+        if (this._msgId) {
+            packet.msg_id = this._msgId;
+        }
+
+        for (let key in this._params) {
+            packet[key] = this._params[key];
+        }
+
+        return JSON.stringify(packet);
     }
-
-    return JSON.stringify(packet);
-};
-
-module.exports = AbstractRequest;
+}

@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react');
-var Link = require('react-router').Link;
+import React from 'react';
+import {Link} from 'react-router';
 
-var Menu = React.createClass({
+const Menu = React.createClass({
     render() {
         return (
             <nav id="main-menu" className="bar">
@@ -18,4 +18,4 @@ var Menu = React.createClass({
     }
 });
 
-module.exports = Menu;
+export default Menu;

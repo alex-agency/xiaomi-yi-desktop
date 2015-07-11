@@ -1,10 +1,10 @@
 'use strict';
 
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var VideosConstants = require('../constants/VideosConstants');
+import {VIDEOS_ADD, VIDEOS_REMOVE, VIDEOS_CLEAR} from '../constants/VideosConstants';
 
-var _videos = [];
+let _videos = [];
 
 function addVideo(path) {
     if (_videos.indexOf(path) < 0) {
@@ -13,7 +13,7 @@ function addVideo(path) {
 };
 
 function removeVideo(path) {
-    var index = _videos.indexOf(path);
+    let index = _videos.indexOf(path);
     if (index >= 0) {
         _videos.splice(index, 1);
     }
@@ -23,19 +23,19 @@ function clearVideos() {
     _videos = [];
 };
 
-var VideosStore = mcFly.createStore({
+const VideosStore = mcFly.createStore({
     getVideos: function() {
         return _videos;
     }
 }, function(payload){
     switch(payload.actionType) {
-        case VideosConstants.VIDEOS_ADD:
+        case VIDEOS_ADD:
             addVideo(payload.path);
             break;
-        case VideosConstants.VIDEOS_REMOVE:
+        case VIDEOS_REMOVE:
             removeVideo(payload.path);
             break;
-        case VideosConstants.VIDEOS_CLEAR:
+        case VIDEOS_CLEAR:
             clearVideos();
             break;
         default:
@@ -47,4 +47,4 @@ var VideosStore = mcFly.createStore({
     return true;
 });
 
-module.exports = VideosStore;
+export default VideosStore;

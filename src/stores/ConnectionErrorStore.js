@@ -1,25 +1,25 @@
 'use strict';
 
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var ConnectionConstants = require('../constants/ConnectionConstants');
+import {CONNECTION_CONNECTED, CONNECTION_DISCONNECTED} from '../constants/ConnectionConstants';
 
-var _connected = false;
+let _connected = false;
 
 function setConnected(connected) {
     _connected = connected;
 };
 
-var ConnectionErrorStore = mcFly.createStore({
+const ConnectionErrorStore = mcFly.createStore({
     isConnected: function() {
         return _connected;
     }
 }, function(payload){
     switch(payload.actionType) {
-        case ConnectionConstants.CONNECTION_CONNECTED:
+        case CONNECTION_CONNECTED:
             setConnected(true);
             break;
-        case ConnectionConstants.CONNECTION_DISCONNECTED:
+        case CONNECTION_DISCONNECTED:
             setConnected(false);
             break;
         default:
@@ -31,4 +31,4 @@ var ConnectionErrorStore = mcFly.createStore({
     return true;
 });
 
-module.exports = ConnectionErrorStore;
+export default ConnectionErrorStore;

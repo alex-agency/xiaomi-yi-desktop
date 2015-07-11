@@ -1,10 +1,10 @@
 'use strict';
 
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var PhotosConstants = require('../constants/PhotosConstants');
+import {PHOTOS_ADD, PHOTOS_REMOVE, PHOTOS_CLEAR} from '../constants/PhotosConstants';
 
-var _photos = [];
+let _photos = [];
 
 function addPhoto(path) {
     if (_photos.indexOf(path) < 0) {
@@ -13,7 +13,7 @@ function addPhoto(path) {
 };
 
 function removePhoto(path) {
-    var index = _photos.indexOf(path);
+    let index = _photos.indexOf(path);
     if (index >= 0) {
         _photos.splice(index, 1);
     }
@@ -23,19 +23,19 @@ function clearPhotos() {
     _photos = [];
 };
 
-var PhotosStore = mcFly.createStore({
+const PhotosStore = mcFly.createStore({
     getPhotos: function() {
         return _photos;
     }
 }, function(payload){
     switch(payload.actionType) {
-        case PhotosConstants.PHOTOS_ADD:
+        case PHOTOS_ADD:
             addPhoto(payload.path);
             break;
-        case PhotosConstants.PHOTOS_REMOVE:
+        case PHOTOS_REMOVE:
             removePhoto(payload.path);
             break;
-        case PhotosConstants.PHOTOS_CLEAR:
+        case PHOTOS_CLEAR:
             clearPhotos();
             break;
         default:
@@ -47,4 +47,4 @@ var PhotosStore = mcFly.createStore({
     return true;
 });
 
-module.exports = PhotosStore;
+export default PhotosStore;

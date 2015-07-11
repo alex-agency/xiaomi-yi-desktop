@@ -1,6 +1,6 @@
 'use strict';
 
-var AbstractRequest = require('../AbstractRequest');
+import AbstractRequest from '../AbstractRequest';
 
 /**
  * Packet : Get space
@@ -9,12 +9,11 @@ var AbstractRequest = require('../AbstractRequest');
  * Parameters :
  *   - type : free|total
  */
-var GetSpaceRequest = function(type) {
-    AbstractRequest.call(this, 5);
-    this._params['type'] = type;
-};
-
-GetSpaceRequest.prototype = Object.create(AbstractRequest.prototype);
-GetSpaceRequest.prototype.constructor = GetSpaceRequest;
+export default class GetSpaceRequest extends AbstractRequest {
+    constructor(type) {
+        super(5);
+        this._params['type'] = type;
+    }
+}
 
 module.exports = GetSpaceRequest;

@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react');
-var classNames = require( 'classnames' );
+import React from 'react';
+import classNames from 'classnames';
 
 // Stores
-var StatusStore = require('../../stores/StatusStore');
+import StatusStore from '../../stores/StatusStore';
 
-var getState = function() {
+const getState = function() {
     return {
         connected: StatusStore.isConnected(),
         batteryLevel: StatusStore.getBatteryLevel(),
@@ -14,7 +14,7 @@ var getState = function() {
     }
 };
 
-var Status = React.createClass({
+const Status = React.createClass({
     mixins: [StatusStore.mixin],
 
     getInitialState: function() {
@@ -26,12 +26,12 @@ var Status = React.createClass({
     },
 
     getFormattedTime: function(time) {
-        var label = '00:00:00';
+        let label = '00:00:00';
 
         if (time) {
-            var hours = Math.floor(time / 3600);
-            var minutes = Math.floor((time - (hours*3600)) / 60);
-            var seconds = time - (hours*3600) - (minutes * 60);
+            let hours = Math.floor(time / 3600);
+            let minutes = Math.floor((time - (hours*3600)) / 60);
+            let seconds = time - (hours*3600) - (minutes * 60);
 
             label = ('0' + hours).slice(-2)+':'+('0' + minutes).slice(-2)+':'+('0' + seconds).slice(-2);
         }
@@ -41,13 +41,13 @@ var Status = React.createClass({
 
     render() {
         // Record Status
-        var recordStatusClasses = classNames({
+        let recordStatusClasses = classNames({
             'recording-status': true,
             'recording': this.state.elapsedRecordTime !== undefined
         });
 
         // Battery
-        var batteryLevelClasses = classNames({
+        let batteryLevelClasses = classNames({
             'battery-level': true,
             'connected': this.state.connected,
             'red' : !this.state.batteryLevel || this.state.batteryLevel < 15,
@@ -56,7 +56,7 @@ var Status = React.createClass({
         });
 
         // Connection Status
-        var connectionStatusClasses = classNames({
+        let connectionStatusClasses = classNames({
             'connection-status': true,
             'connected': this.state.connected
         });
@@ -79,4 +79,4 @@ var Status = React.createClass({
     }
 });
 
-module.exports = Status;
+export default Status;

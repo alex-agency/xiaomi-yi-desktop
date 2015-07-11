@@ -1,14 +1,14 @@
 'use strict';
 
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var BatteryConstants = require('../constants/BatteryConstants');
-var ConnectionConstants = require('../constants/ConnectionConstants');
-var VideosConstants = require('../constants/VideosConstants');
+import {BATTERY_UPDATE} from '../constants/BatteryConstants';
+import {CONNECTION_CONNECTED, CONNECTION_DISCONNECTED} from '../constants/ConnectionConstants';
+import {VIDEOS_RECORD_START, VIDEOS_RECORD_COMPLETE, VIDEOS_RECORD_TIME} from '../constants/VideosConstants';
 
-var _connected = false;
-var _batteryLevel = undefined;
-var _elapsedRecordTime = undefined;
+let _connected = false;
+let _batteryLevel = undefined;
+let _elapsedRecordTime = undefined;
 
 function setConnected(connected) {
     _connected = connected;
@@ -22,7 +22,7 @@ function setElapsedRecordTime(elapsedRecordTime) {
     _elapsedRecordTime = elapsedRecordTime;
 };
 
-var StatusStore = mcFly.createStore({
+const StatusStore = mcFly.createStore({
     isConnected: function() {
         return _connected;
     },
@@ -34,23 +34,23 @@ var StatusStore = mcFly.createStore({
     }
 }, function(payload){
     switch(payload.actionType) {
-        case BatteryConstants.BATTERY_UPDATE:
+        case BATTERY_UPDATE:
             setBatteryLevel(payload.level);
             break;
-        case ConnectionConstants.CONNECTION_CONNECTED:
+        case CONNECTION_CONNECTED:
             setConnected(true);
             break;
-        case ConnectionConstants.CONNECTION_DISCONNECTED:
+        case CONNECTION_DISCONNECTED:
             setConnected(false);
             setBatteryLevel(undefined);
             break;
-        case VideosConstants.VIDEOS_RECORD_START:
+        case VIDEOS_RECORD_START:
             setElapsedRecordTime(0);
             break;
-        case VideosConstants.VIDEOS_RECORD_COMPLETE:
+        case VIDEOS_RECORD_COMPLETE:
             setElapsedRecordTime(undefined);
             break;
-        case VideosConstants.VIDEOS_RECORD_TIME:
+        case VIDEOS_RECORD_TIME:
             setElapsedRecordTime(payload.elapsedTime);
             break;
         default:
@@ -62,4 +62,4 @@ var StatusStore = mcFly.createStore({
     return true;
 });
 
-module.exports = StatusStore;
+export default StatusStore;

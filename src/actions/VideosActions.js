@@ -1,44 +1,51 @@
 'use strict';
 
-var mcFly = require('../flux/mcFly');
+import mcFly from '../flux/mcFly';
 
-var VideosConstants = require('../constants/VideosConstants');
+import {
+    VIDEOS_ADD,
+    VIDEOS_REMOVE,
+    VIDEOS_CLEAR,
+    VIDEOS_RECORD_START,
+    VIDEOS_RECORD_COMPLETE,
+    VIDEOS_RECORD_TIME
+} from '../constants/VideosConstants';
 
-var VideosActions = mcFly.createActions({
+const VideosActions = mcFly.createActions({
     addVideo: function(path) {
         return {
-            actionType: VideosConstants.VIDEOS_ADD,
+            actionType: VIDEOS_ADD,
             path: path
         }
     },
     removeVideo: function(path) {
         return {
-            actionType: VideosConstants.VIDEOS_REMOVE,
+            actionType: VIDEOS_REMOVE,
             path: path
         }
     },
     clearVideos: function() {
         return {
-            actionType: VideosConstants.VIDEOS_CLEAR
+            actionType: VIDEOS_CLEAR
         }
     },
     recordStart: function() {
         return {
-            actionType: VideosConstants.VIDEOS_RECORD_START
+            actionType: VIDEOS_RECORD_START
         }
     },
     recordComplete: function(path) {
         return {
-            actionType: VideosConstants.VIDEOS_RECORD_COMPLETE,
+            actionType: VIDEOS_RECORD_COMPLETE,
             path: path
         }
     },
     recordTimeUpdate: function(elapsedTime) {
         return {
-            actionType: VideosConstants.VIDEOS_RECORD_TIME,
+            actionType: VIDEOS_RECORD_TIME,
             elapsedTime: elapsedTime
         }
     }
 });
 
-module.exports = VideosActions;
+export default VideosActions;

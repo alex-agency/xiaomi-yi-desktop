@@ -1,10 +1,10 @@
 'use strict';
 
-var app = require('app');
-var BrowserWindow = require('browser-window');
+const app = require('app');
+const BrowserWindow = require('browser-window');
 
 // Window object global reference
-var mainWindow = null;
+let mainWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {

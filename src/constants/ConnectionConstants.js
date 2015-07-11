@@ -1,8 +1,8 @@
 'use strict';
 
-var keyMirror = require('keymirror');
+import keyMirror from 'keymirror';
 
-module.exports = keyMirror({
+export default keyMirror({
     CONNECTION_CONNECTED: null,
     CONNECTION_DISCONNECTED: null
 });

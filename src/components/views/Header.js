@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
 // Components
-var Status = require('./../widgets/Status');
+import Status from './../widgets/Status';
 
-var Header = React.createClass({
+const Header = React.createClass({
     render() {
         return (
             <header id="main-header" className="bar">
@@ -16,4 +16,4 @@ var Header = React.createClass({
     }
 });
 
-module.exports = Header;
+export default Header;

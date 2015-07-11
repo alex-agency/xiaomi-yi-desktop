@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
-var VideoPlayer = React.createClass({
+const VideoPlayer = React.createClass({
     render() {
         return (
             <div className="video-player-widget">
@@ -14,4 +14,4 @@ var VideoPlayer = React.createClass({
     }
 });
 
-module.exports = VideoPlayer;
+export default VideoPlayer;

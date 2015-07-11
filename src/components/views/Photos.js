@@ -1,20 +1,20 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
 // Stores
-var PhotosStore = require('../../stores/PhotosStore');
+import PhotosStore from '../../stores/PhotosStore';
 
 // Components
-var PhotoThumbnail = require('../widgets/PhotoThumbnail');
+import PhotoThumbnail from '../widgets/PhotoThumbnail';
 
-var getState = function() {
+const getState = function() {
     return {
         photos: PhotosStore.getPhotos()
     }
 };
 
-var Photos = React.createClass({
+const Photos = React.createClass({
     mixins: [PhotosStore.mixin],
 
     getInitialState: function() {
@@ -26,10 +26,10 @@ var Photos = React.createClass({
     },
 
     render() {
-        var photos = [];
+        let photos = [];
 
-        for (var i=0; i<this.state.photos.length; i++) {
-            var path = this.state.photos[i];
+        for (let i=0; i<this.state.photos.length; i++) {
+            let path = this.state.photos[i];
             photos.push(<PhotoThumbnail src={path} caption={path}/>);
         }
 
@@ -41,4 +41,4 @@ var Photos = React.createClass({
     }
 });
 
-module.exports = Photos;
+export default Photos;

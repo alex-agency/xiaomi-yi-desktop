@@ -1,20 +1,20 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
 // Stores
-var VideosStore = require('../../stores/VideosStore');
+import VideosStore from '../../stores/VideosStore';
 
 // Components
-var VideoThumbnail = require('../widgets/VideoThumbnail');
+import VideoThumbnail from '../widgets/VideoThumbnail';
 
-var getState = function() {
+const getState = function() {
     return {
         videos: VideosStore.getVideos()
     }
 };
 
-var Videos = React.createClass({
+const Videos = React.createClass({
     mixins: [VideosStore.mixin],
 
     getInitialState: function() {
@@ -26,10 +26,10 @@ var Videos = React.createClass({
     },
 
     render() {
-        var videos = [];
+        let videos = [];
 
-        for (var i=0; i<this.state.videos.length; i++) {
-            var path = this.state.videos[i];
+        for (let i=0; i<this.state.videos.length; i++) {
+            let path = this.state.videos[i];
             videos.push(<VideoThumbnail src={path} caption={path}/>);
         }
 
@@ -41,4 +41,4 @@ var Videos = React.createClass({
     }
 });
 
-module.exports = Videos;
+export default Videos;

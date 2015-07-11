@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react');
-var Link = require('react-router').Link;
+import React from 'react';
+import {Link} from 'react-router';
 
-var PhotoThumbnail = React.createClass({
+const PhotoThumbnail = React.createClass({
     render() {
-        var randomRotation = Math.round((Math.random()*10)-5);
-        var styles = {
+        let randomRotation = Math.round((Math.random()*10)-5);
+        let styles = {
             transform: 'rotateZ('+randomRotation+'deg)'
         }
         return (
@@ -18,4 +18,4 @@ var PhotoThumbnail = React.createClass({
     }
 });
 
-module.exports = PhotoThumbnail;
+export default PhotoThumbnail;

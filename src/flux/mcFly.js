@@ -1,7 +1,5 @@
 'use strict';
 
-var McFly = require('mcfly');
+import McFly from 'mcfly';
 
-var mcFly = new McFly();
-
-module.exports = mcFly;
+export default new McFly();

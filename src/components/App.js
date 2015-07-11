@@ -1,15 +1,16 @@
 'use strict';
 
-var React = require('react');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
+import React from 'react';
+import Router from 'react-router';
+
+const RouteHandler = Router.RouteHandler;
 
 // Components
-var Header = require('./views/Header');
-var Menu = require('./views/Menu');
-var ConnectionError = require('./views/ConnectionError');
+import Header from './views/Header';
+import Menu from './views/Menu';
+import ConnectionError from './views/ConnectionError';
 
-var App = React.createClass({
+const App = React.createClass({
     render() {
         return (
             <div id='xiaomi-yi-app' className="grid rows split50">
@@ -28,4 +29,4 @@ var App = React.createClass({
     }
 });
 
-module.exports = App;
+export default App;

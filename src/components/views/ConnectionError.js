@@ -1,18 +1,18 @@
 'use strict';
 
-var React = require('react');
-var classNames = require( 'classnames' );
+import React from 'react';
+import classNames from 'classnames';
 
 // Stores
-var ConnectionErrorStore = require('../../stores/ConnectionErrorStore');
+import ConnectionErrorStore from '../../stores/ConnectionErrorStore';
 
-var getState = function() {
+const getState = function() {
     return {
         connected: ConnectionErrorStore.isConnected()
     }
 };
 
-var Header = React.createClass({
+const ConnectionError = React.createClass({
     mixins: [ConnectionErrorStore.mixin],
 
     getInitialState: function() {
@@ -24,7 +24,7 @@ var Header = React.createClass({
     },
 
     render() {
-        var statusClasses = classNames({
+        let statusClasses = classNames({
             'disconnected': !this.state.connected
         });
         return (
@@ -50,4 +50,4 @@ var Header = React.createClass({
     }
 });
 
-module.exports = Header;
+export default ConnectionError;

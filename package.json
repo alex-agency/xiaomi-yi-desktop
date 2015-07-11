@@ -39,12 +39,12 @@
     "grunt-env": "~0.4.4",
     "browserify": "~10.2.4",
     "watchify": "~3.2.3",
-    "reactify": "~1.1.1",
-    "grunt-contrib-copy": "~0.8.0"
+    "grunt-contrib-copy": "~0.8.0",
+    "babelify": "~6.1.2"
   },
   "browserify": {
     "transform": [
-      "reactify"
+      "babelify"
     ]
   },
   "scripts": {

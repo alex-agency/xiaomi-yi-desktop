@@ -1,8 +1,8 @@
 'use strict';
 
-var keyMirror = require('keymirror');
+import keyMirror from 'keymirror';
 
-module.exports = keyMirror({
+export default keyMirror({
     VIDEOS_ADD: null,
     VIDEOS_REMOVE: null,
     VIDEOS_CLEAR: null,

@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         },
         browserify: {
             options: {
-                transform: ['reactify']
+                transform: ['babelify']
             },
             dev: {
                 src: ['src/app.js'],

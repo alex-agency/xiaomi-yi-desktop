@@ -1,29 +1,26 @@
 'use strict';
 
-var AbstractResponse = require('../AbstractResponse');
+import AbstractResponse from '../AbstractResponse';
 
 /**
  * Packet : Record Start
  * Description : Sent by the camera when a record starts
  * Opcode : 7 (with 'start_video_record' data type)
  */
-var RecordStartResponse = function() {
-    AbstractResponse.call(this);
-};
+export default class RecordStartResponse extends AbstractResponse {
+    constructor() {
+        super();
+    }
 
-RecordStartResponse.prototype = Object.create(AbstractResponse.prototype);
-RecordStartResponse.prototype.constructor = RecordStartResponse;
+    matches() {
+        return (this._data.msg_id == 7 && this._data.type == 'start_video_record');
+    }
 
-RecordStartResponse.prototype.matches = function() {
-    return (this._data.msg_id == 7 && this._data.type == 'start_video_record');
-};
+    process() {
+        console.log('RecordStartResponse : Record started');
 
-RecordStartResponse.prototype.process = function() {
-    console.log('RecordStartResponse : Record started');
-
-    // Notify record listeners
-    var VideosActions = require('../../../actions/VideosActions');
-    VideosActions.recordStart();
-};
-
-module.exports = RecordStartResponse;
+        // Notify record listeners
+        let VideosActions = require('../../../actions/VideosActions');
+        VideosActions.recordStart();
+    }
+}

@@ -1,30 +1,27 @@
 'use strict';
 
-var AbstractResponse = require('../AbstractResponse');
+import AbstractResponse from '../AbstractResponse';
 
 /**
  * Packet : Battery update
  * Description : Sent by the camera after a battery level change or a "Get Battery Level" request
  * Opcode : 7 or 13 (with 'battery' data type)
  */
-var BatteryUpdateResponse = function() {
-    AbstractResponse.call(this);
-};
+export default class BatteryUpdateResponse extends AbstractResponse {
+    constructor() {
+        super();
+    }
 
-BatteryUpdateResponse.prototype = Object.create(AbstractResponse.prototype);
-BatteryUpdateResponse.prototype.constructor = BatteryUpdateResponse;
+    matches() {
+        return ((this._data.msg_id == 7 || this._data.msg_id == 13) && this._data.type == 'battery' &&  this._data.param);
+    }
 
-BatteryUpdateResponse.prototype.matches = function() {
-    return ((this._data.msg_id == 7 || this._data.msg_id == 13) && this._data.type == 'battery' &&  this._data.param);
-};
+    process() {
+        let level = this._data.param;
+        console.log('BatteryUpdateResponse : Battery update (' + level + '%)');
 
-BatteryUpdateResponse.prototype.process = function() {
-    var level = this._data.param;
-    console.log('BatteryUpdateResponse : Battery update (' + level + '%)');
-
-    // Notify battery listeners of its new level
-    var BatteryActions = require('../../../actions/BatteryActions');
-    BatteryActions.setBatteryLevel(level);
-};
-
-module.exports = BatteryUpdateResponse;
+        // Notify battery listeners of its new level
+        let BatteryActions = require('../../../actions/BatteryActions');
+        BatteryActions.setBatteryLevel(level);
+    }
+}
