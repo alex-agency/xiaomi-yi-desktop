@@ -1,5 +1,3 @@
-'use strict';
-
 import AbstractResponse from '../AbstractResponse';
 
 /**

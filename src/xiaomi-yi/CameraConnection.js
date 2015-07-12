@@ -1,5 +1,3 @@
-'use strict';
-
 const remote = window.require('remote');
 const net = remote.require('net');
 

@@ -1,5 +1,3 @@
-'use strict';
-
 import GetBatteryLevelRequest from './packets/requests/GetBatteryLevelRequest';
 import GetSettingsRequest from './packets/requests/GetSettingsRequest';
 import GetSpaceRequest from './packets/requests/GetSpaceRequest';

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Common class for packets that can be received from the camera.
  */

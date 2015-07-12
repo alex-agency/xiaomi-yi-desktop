@@ -1,5 +1,3 @@
-'use strict';
-
 import mcFly from '../flux/mcFly';
 
 import {PHOTOS_ADD, PHOTOS_REMOVE, PHOTOS_PHOTO_TAKEN} from '../constants/PhotosConstants';

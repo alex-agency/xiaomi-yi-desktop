@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Describe a packet sent by the app
  */

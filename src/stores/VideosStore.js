@@ -1,5 +1,3 @@
-'use strict';
-
 import mcFly from '../flux/mcFly';
 
 import {VIDEOS_ADD, VIDEOS_REMOVE, VIDEOS_CLEAR} from '../constants/VideosConstants';

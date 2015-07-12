@@ -1,5 +1,3 @@
-'use strict';
-
 import mcFly from '../flux/mcFly';
 
 import {CONNECTION_CONNECTED, CONNECTION_DISCONNECTED} from '../constants/ConnectionConstants';

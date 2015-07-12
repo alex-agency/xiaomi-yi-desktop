@@ -1,5 +1,3 @@
-'use strict';
-
 import mcFly from '../flux/mcFly';
 
 import {BATTERY_UPDATE} from '../constants/BatteryConstants';
