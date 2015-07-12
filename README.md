@@ -6,7 +6,7 @@ Mainly uses [Electron](https://github.com/atom/electron) and [React](https://git
 
 ## Features
 
-- [ ] Display current camera settings
+- [x] Display current camera settings
 - [ ] Modify camera settings
 - [ ] List stored photos
 - [ ] List stored videos

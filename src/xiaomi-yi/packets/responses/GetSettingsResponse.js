@@ -17,13 +17,17 @@ export default class GetSettingsResponse extends AbstractResponse {
     process() {
         let settings = this._data.param;
 
+        let SettingsActions = require('../../../actions/SettingsActions');
+
         for (let i=0; i<settings.length; i++) {
             for (let key in settings[i]) {
                 let value = settings[i][key];
                 console.log('GetSettingsResponse: '+key+' = '+value);
+
+
+                // Notify settings listeners of the new value
+                SettingsActions.setValue(key, value);
             }
         }
-
-        // TODO Call SettingsStore
     }
 }
