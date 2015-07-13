@@ -28,7 +28,7 @@ export default class GetSettingsResponse extends AbstractResponse {
                     let set = value.slice(9).split('#');
                     let choices = {};
                     for (let j = 0; j<set.length; j++) {
-                        choices[set[j]] = set[j].charAt(0).toUpperCase() + set[j].slice(1);;
+                        choices[set[j]] = set[j].charAt(0).toUpperCase() + set[j].slice(1);
                     }
 
                     // Notify settings listeners of the new choices

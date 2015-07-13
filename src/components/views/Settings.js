@@ -64,12 +64,14 @@ const Settings = React.createClass({
                     {this.createChoice('photo_size', 'Photo resolution')}
                     {this.createChoice('photo_quality', 'Photo quality')}
                     {this.createChoice('photo_stamp', 'Enable photo stamp (date and time)')}
+                    {this.createSwitch('timelapse_photo', 'Enable photo timelapse')}
                 </SettingsSection>
 
                 <SettingsSection name="Capture">
                     {this.createChoice('capture_mode', 'Capture mode')}
                     {this.createSwitch('auto_low_light', 'Enable auto low-light')}
                     {this.createSwitch('loop_record', 'Enable loop recording')}
+                    {this.createSwitch('emergency_file_backup', 'Emergency file backup')}
                     {this.createSwitch('warp_enable', 'Enable warp (disable fisheye effect)')}
                     {this.createChoice('meter_mode', 'Exposure/White balance preset')}
                     {this.createChoice('precise_cont_time', 'Delay between frames in timelapse mode')}

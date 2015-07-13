@@ -16,15 +16,33 @@ const SettingsSwitch = React.createClass({
         currentValue: React.PropTypes.string
     },
 
+    getInitialState: function() {
+        return {
+            updateTimer: undefined
+        };
+    },
+
+    componentWillUnmount: function() {
+        clearInterval(this.state.updateTimer);
+    },
+
     handleChange: function(event) {
         let setting = this.props.setting;
         let value = event.target.checked ? 'on': 'off';
 
         console.log('SettingsSwitch: Setting '+setting+' = '+value);
         CameraCommands.setSetting(CameraConnection, setting, value);
-        SettingsActions.setValue(setting, value);
+        SettingsActions.setValue(setting, undefined); // Display spinner
 
-        // TODO Check if the command has been successfuly processed by the camera
+        // Check if the command has been successfuly processed by the camera
+        this.state.updateTimer = setInterval(() => {
+            if (this.props.currentValue) {
+                clearInterval(this.state.updateTimer);
+            }
+            else {
+                CameraCommands.getSetting(CameraConnection, this.props.setting);
+            }
+        }, 1000);
     },
 
     render() {

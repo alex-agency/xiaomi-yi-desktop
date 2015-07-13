@@ -2,6 +2,8 @@ import AbstractResponse from './packets/AbstractResponse';
 
 // Packets
 import BatteryUpdateResponse from './packets/responses/BatteryUpdateResponse';
+import GetSettingChoicesResponse from './packets/responses/GetSettingChoicesResponse';
+import GetSettingResponse from './packets/responses/GetSettingResponse';
 import GetSettingsResponse from './packets/responses/GetSettingsResponse';
 import PhotoTakenResponse from './packets/responses/PhotoTakenResponse';
 import RecordCompleteResponse from './packets/responses/RecordCompleteResponse';
@@ -69,6 +71,8 @@ class PacketHandler {
 
 export default new PacketHandler().register([
     new BatteryUpdateResponse(),
+    new GetSettingChoicesResponse(),
+    new GetSettingResponse(),
     new GetSettingsResponse(),
     new PhotoTakenResponse(),
     new RecordCompleteResponse(),

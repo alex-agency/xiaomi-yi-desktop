@@ -48,9 +48,17 @@ const SettingsChoice = React.createClass({
 
         console.log('SettingsChoice: Setting '+setting+' = '+value);
         CameraCommands.setSetting(CameraConnection, setting, value);
-        SettingsActions.setValue(setting, value);
+        SettingsActions.setValue(setting, undefined); // Display spinner
 
-        // TODO Check if the command has been successfuly processed by the camera
+        // Check if the command has been successfuly processed by the camera
+        this.state.updateTimer = setInterval(() => {
+            if (this.props.currentValue) {
+                clearInterval(this.state.updateTimer);
+            }
+            else {
+                CameraCommands.getSetting(CameraConnection, this.props.setting);
+            }
+        }, 1000);
     },
 
     render() {

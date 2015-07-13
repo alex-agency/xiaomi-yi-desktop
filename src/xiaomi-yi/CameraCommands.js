@@ -1,5 +1,6 @@
 import GetBatteryLevelRequest from './packets/requests/GetBatteryLevelRequest';
 import GetSettingChoicesRequest from './packets/requests/GetSettingChoicesRequest';
+import GetSettingRequest from './packets/requests/GetSettingRequest';
 import GetSettingsRequest from './packets/requests/GetSettingsRequest';
 import GetSpaceRequest from './packets/requests/GetSpaceRequest';
 import SetSettingRequest from './packets/requests/SetSettingRequest';
@@ -15,6 +16,10 @@ class CameraCommands {
 
     getSettingChoices(connection, setting) {
         connection.send(new GetSettingChoicesRequest(setting));
+    }
+
+    getSetting(connection, setting) {
+        connection.send(new GetSettingRequest(setting));
     }
 
     getSettings(connection) {
