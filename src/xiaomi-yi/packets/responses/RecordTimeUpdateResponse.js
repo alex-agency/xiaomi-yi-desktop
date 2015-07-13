@@ -1,4 +1,5 @@
 import AbstractResponse from '../AbstractResponse';
+import VideosActions from '../../../actions/VideosActions';
 
 /**
  * Packet : Record Time Update
@@ -19,7 +20,6 @@ export default class RecordTimeUpdateResponse extends AbstractResponse {
         console.log('RecordTimeUpdateResponse : ' + elapsedTime + ' seconds');
 
         // Notify record listeners of the elapsed time
-        let VideosActions = require('../../../actions/VideosActions');
         VideosActions.recordTimeUpdate(elapsedTime);
     }
 }

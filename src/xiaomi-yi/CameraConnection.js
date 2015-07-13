@@ -1,8 +1,9 @@
 const remote = window.require('remote');
 const net = remote.require('net');
 
-import PacketHandler from './PacketHandler';
 import AbstractRequest from './packets/AbstractRequest';
+import CameraCommands from './CameraCommands';
+import PacketHandler from './PacketHandler';
 
 // Actions
 import ConnectionActions from '../actions/ConnectionActions';
@@ -36,8 +37,6 @@ class CameraConnection {
     start() {
         console.log("CameraConnection: Start");
 
-        let self = this;
-
         if (!this._ip || !this._port) {
             throw new Error('CameraConnection: Connection not initialized, call CameraConnection.initialize(options) first');
         }
@@ -50,43 +49,42 @@ class CameraConnection {
         this._socket.setEncoding('utf8');
 
         // On connect : Notify status store and ask for a token
-        this._socket.on('connect', function() {
+        this._socket.on('connect', () => {
             console.log("CameraConnection: Connected");
 
             // Reset token
             this._token = 0;
 
             // Import CameraCommands here to avoid circular references
-            let CameraCommands = require('./CameraCommands');
-            CameraCommands.startSession(self);
+            CameraCommands.startSession(this);
 
             // Notify stores
             ConnectionActions.setConnected(true);
         });
 
         // On data : Handle received packet
-        this._socket.on('data', function(data) {
+        this._socket.on('data', (data) => {
             // Some packets are not received in only one pass so we have to assemble them...
             try {
                 // If the buffer is a valid JSON string replace the current buffer
                 JSON.parse(data);
-                self._buffer = data;
+                this._buffer = data;
             }
             catch(e) {
                 // No JSON, possibly part of another packet, append it to current buffer
-                self._buffer += data;
+                this._buffer += data;
             }
 
             // Check if the buffer is a valid JSON string
             try {
-                JSON.parse(self._buffer);
+                JSON.parse(this._buffer);
 
-                if (!PacketHandler.handle(self._buffer)) {
+                if (!PacketHandler.handle(this._buffer)) {
                     console.log("CameraConnection: Data not fully handled", data);
                 }
 
                 // Clear buffer
-                self._buffer = '';
+                this._buffer = '';
             }
             catch(e) {
                 // Ignore buffer and hope the next packet fixes it
@@ -94,12 +92,12 @@ class CameraConnection {
         });
 
         // On error
-        this._socket.on('error', function(error) {
+        this._socket.on('error', (error) => {
             console.log("CameraConnection: Error " + error.code);
         });
 
         // On close : Notify status store and schedule a reconnection
-        this._socket.on('close', function() {
+        this._socket.on('close', () => {
             console.log("CameraConnection: Connection closed");
 
             // Notify stores
@@ -108,9 +106,9 @@ class CameraConnection {
             // Auto reconnect
             console.log("CameraConnection: Scheduling reconnection in 5s");
             setTimeout(
-                function(){
-                    console.log("CameraConnection: Connecting to " + self._ip + ":" + self._port);
-                    self._socket.connect(self._port, self._ip);
+                () => {
+                    console.log("CameraConnection: Connecting to " + this._ip + ":" + this._port);
+                    this._socket.connect(this._port, this._ip);
                 },
                 5000
             );

@@ -1,4 +1,6 @@
 import AbstractResponse from '../AbstractResponse';
+import CameraConnection from '../../CameraConnection';
+import CameraCommands from '../../CameraCommands';
 
 /**
  * Packet : Start session
@@ -19,11 +21,9 @@ export default class StartSessionResponse extends AbstractResponse {
         console.log('StartSessionResponse: Token update (' + token + ')');
 
         // Send new token to the CameraConnection
-        let CameraConnection = require('../../CameraConnection');
         CameraConnection.setToken(token);
 
         // Send a GetBatteryLevel request
-        let CameraCommands = require('../../CameraCommands');
         CameraCommands.getBatteryLevel(CameraConnection);
 
         // Send GetSettings request

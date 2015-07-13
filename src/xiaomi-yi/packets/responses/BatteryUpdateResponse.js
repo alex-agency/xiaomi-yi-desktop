@@ -1,4 +1,5 @@
 import AbstractResponse from '../AbstractResponse';
+import BatteryActions from '../../../actions/BatteryActions';
 
 /**
  * Packet : Battery update
@@ -19,7 +20,6 @@ export default class BatteryUpdateResponse extends AbstractResponse {
         console.log('BatteryUpdateResponse : Battery update (' + level + '%)');
 
         // Notify battery listeners of its new level
-        let BatteryActions = require('../../../actions/BatteryActions');
         BatteryActions.setBatteryLevel(level);
     }
 }

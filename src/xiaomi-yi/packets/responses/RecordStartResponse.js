@@ -1,4 +1,5 @@
 import AbstractResponse from '../AbstractResponse';
+import VideosActions from '../../../actions/VideosActions';
 
 /**
  * Packet : Record Start
@@ -18,7 +19,6 @@ export default class RecordStartResponse extends AbstractResponse {
         console.log('RecordStartResponse : Record started');
 
         // Notify record listeners
-        let VideosActions = require('../../../actions/VideosActions');
         VideosActions.recordStart();
     }
 }

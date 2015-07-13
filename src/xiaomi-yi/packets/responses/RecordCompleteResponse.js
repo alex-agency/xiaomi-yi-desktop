@@ -1,4 +1,5 @@
 import AbstractResponse from '../AbstractResponse';
+import VideosActions from '../../../actions/VideosActions';
 
 /**
  * Packet : Record Complete
@@ -19,7 +20,6 @@ export default class RecordCompleteResponse extends AbstractResponse {
         console.log('RecordCompleteResponse : ' + path);
 
         // Notify listeners
-        let VideosActions = require('../../../actions/VideosActions');
         VideosActions.recordComplete(path);
     }
 }

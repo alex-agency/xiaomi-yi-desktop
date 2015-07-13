@@ -1,0 +1,53 @@
+.settings-container {
+    section {
+        position: relative;
+        margin: 30px;
+        border: 1px solid lighten($bg-color, 10%);
+        padding: 10px;
+        line-height: 20px;
+        font-size: 12px;
+
+        .section-name {
+            position: absolute;
+
+            top: -25px;
+            left: -1px;
+
+            height: 20px;
+            line-height: 20px;
+
+            font-weight: bold;
+            font-size: 14px;
+
+            padding: 2px;
+        }
+    }
+
+    .settings-label {
+        display: inline-block;
+        min-width: 250px;
+    }
+
+    .settings-row {
+        span, select, input {
+            margin: 0;
+            vertical-align: middle;
+        }
+    }
+
+    .spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+
+        background: url("../images/spinner.gif");
+        background-size: 100% 100%;
+        background-position: center center;
+
+        vertical-align: middle;
+    }
+
+    select {
+        min-width: 200px;
+    }
+}

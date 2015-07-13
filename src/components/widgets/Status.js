@@ -1,6 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import CameraConnection from '../../xiaomi-yi/CameraConnection';
+import CameraCommands from '../../xiaomi-yi/CameraCommands';
+
 // Stores
 import StatusStore from '../../stores/StatusStore';
 

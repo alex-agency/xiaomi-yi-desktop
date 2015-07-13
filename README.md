@@ -4,10 +4,12 @@ This is a desktop app for the Xiaomi Yi action cam.
 
 Mainly uses [Electron](https://github.com/atom/electron) and [React](https://github.com/facebook/react).
 
+![Screenshot](http://adrastee.net/medias/xiaomi-yi-desktop/screenshot.png)
+
 ## Features
 
 - [x] Display current camera settings
-- [ ] Modify camera settings
+- [x] Modify camera settings
 - [ ] List stored photos
 - [ ] List stored videos
 - [ ] View stored photos

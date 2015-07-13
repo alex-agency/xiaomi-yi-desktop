@@ -1,4 +1,5 @@
 import AbstractResponse from '../AbstractResponse';
+import PhotosActions from '../../../actions/PhotosActions';
 
 /**
  * Packet : Photo Taken
@@ -19,7 +20,6 @@ export default class PhotoTakenResponse extends AbstractResponse {
         console.log('PhotoTakenResponse : ' + path);
 
         // Notify listeners
-        let PhotosActions = require('../../../actions/PhotosActions');
         PhotosActions.photoTaken(path);
     }
 }

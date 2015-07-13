@@ -5,7 +5,7 @@ import AbstractRequest from '../AbstractRequest';
  * Description : Sent by the client to retrieve all the current settings
  * Opcode : 3
  */
-export default class GetSettings extends AbstractRequest {
+export default class GetSettingsRequest extends AbstractRequest {
     constructor() {
         super(3);
     }
