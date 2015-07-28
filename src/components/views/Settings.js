@@ -10,8 +10,7 @@ import SettingsSwitch from '../widgets/SettingsSwitch';
 
 const getState = function() {
     return {
-        settings: SettingsStore.getSettings(),
-        choices: SettingsStore.getChoices()
+        settings: SettingsStore.getSettings()
     }
 };
 
@@ -26,8 +25,16 @@ const Settings = React.createClass({
         this.setState(getState());
     },
 
+    getValue: function(name) {
+        return this.state.settings[name] ? this.state.settings[name].value : undefined;
+    },
+
     getChoices: function(name) {
-        return this.state.choices[name] ? this.state.choices[name] : {};
+        return this.state.settings[name] ? this.state.settings[name].choices : {};
+    },
+
+    isReadOnly: function(name) {
+        return this.state.settings[name] ? this.state.settings[name].readonly : false;
     },
 
     createChoice: function(setting, label) {
@@ -35,8 +42,9 @@ const Settings = React.createClass({
             <SettingsChoice
                 setting={setting}
                 label={label}
-                currentValue={this.state.settings[setting]}
-                choices={this.getChoices(setting)} />
+                currentValue={this.getValue(setting)}
+                choices={this.getChoices(setting)}
+                readonly={this.isReadOnly(setting)} />
         )
     },
 
@@ -45,7 +53,8 @@ const Settings = React.createClass({
             <SettingsSwitch
                 setting={setting}
                 label={label}
-                currentValue={this.state.settings[setting]} />
+                currentValue={this.getValue(setting)}
+                readonly={this.isReadOnly(setting)} />
         )
     },
 
@@ -53,18 +62,19 @@ const Settings = React.createClass({
         return (
             <div className="panel settings-container">
                 <SettingsSection name="Video">
+                    {this.createChoice('video_standard', 'Video standard')}
                     {this.createChoice('video_resolution', 'Video resolution')}
                     {this.createChoice('video_quality', 'Video quality')}
                     {this.createChoice('video_stamp', 'Enable video stamp (date and time)')}
-                    {this.createSwitch('timelapse_video', 'Enable video timelapse')}
-                    {this.createSwitch('video_rotate', 'Enable 180° video rotation')}
+                    {this.createChoice('timelapse_video', 'Enable video timelapse')}
+                    {this.createChoice('video_rotate', 'Enable 180° video rotation')}
                 </SettingsSection>
 
                 <SettingsSection name="Photo">
                     {this.createChoice('photo_size', 'Photo resolution')}
                     {this.createChoice('photo_quality', 'Photo quality')}
                     {this.createChoice('photo_stamp', 'Enable photo stamp (date and time)')}
-                    {this.createSwitch('timelapse_photo', 'Enable photo timelapse')}
+                    {this.createChoice('timelapse_photo', 'Enable photo timelapse')}
                 </SettingsSection>
 
                 <SettingsSection name="Capture">
@@ -83,7 +93,7 @@ const Settings = React.createClass({
                     {this.createChoice('system_mode', 'Current mode')}
                     {this.createChoice('system_default_mode', 'Default mode')}
                     {this.createSwitch('start_wifi_while_booted', 'Start Wi-Fi on boot')}
-                    {this.createSwitch('auto_power_off', 'Enable automatic shutdown')}
+                    {this.createChoice('auto_power_off', 'Enable automatic shutdown')}
                     {this.createChoice('led_mode', 'Led mode')}
                     {this.createSwitch('buzzer_ring', 'Enable ring buzzer')}
                     {this.createChoice('buzzer_volume', 'Buzzer volume')}

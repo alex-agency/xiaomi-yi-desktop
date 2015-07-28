@@ -56,7 +56,7 @@ class CameraConnection {
             this._token = 0;
 
             // Import CameraCommands here to avoid circular references
-            CameraCommands.startSession(this);
+            CameraCommands.startSession();
 
             // Notify stores
             ConnectionActions.setConnected(true);

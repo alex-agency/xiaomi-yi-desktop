@@ -24,9 +24,9 @@ export default class StartSessionResponse extends AbstractResponse {
         CameraConnection.setToken(token);
 
         // Send a GetBatteryLevel request
-        CameraCommands.getBatteryLevel(CameraConnection);
+        CameraCommands.getBatteryLevel();
 
         // Send GetSettings request
-        CameraCommands.getSettings(CameraConnection);
+        CameraCommands.getSettings();
     }
 }

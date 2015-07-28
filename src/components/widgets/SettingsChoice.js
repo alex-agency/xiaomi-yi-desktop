@@ -1,6 +1,5 @@
 import React from 'react';
 
-import CameraConnection from '../../xiaomi-yi/CameraConnection';
 import CameraCommands from '../../xiaomi-yi/CameraCommands';
 
 // Actions
@@ -15,6 +14,7 @@ const SettingsChoice = React.createClass({
         label: React.PropTypes.string.isRequired,
         choices: React.PropTypes.object.isRequired,
         currentValue: React.PropTypes.string,
+        readonly: React.PropTypes.bool
     },
 
     getInitialState: function() {
@@ -24,16 +24,16 @@ const SettingsChoice = React.createClass({
     },
 
     componentDidMount: function() {
-        CameraCommands.getSettingChoices(CameraConnection, this.props.setting);
+        CameraCommands.getSettingChoices(this.props.setting);
 
         // In case the camera doesn't response (seems to happen if multiple request
         // are sent at the same time) retry every seconds until we get a response.
         this.state.updateTimer = setInterval(() => {
-            if (this.props.choices && Object.keys(this.props.choices).length) {
+            if ((this.props.choices && Object.keys(this.props.choices).length) || this.props.readonly) {
                 clearInterval(this.state.updateTimer);
             }
             else {
-                CameraCommands.getSettingChoices(CameraConnection, this.props.setting);
+                CameraCommands.getSettingChoices(this.props.setting);
             }
         }, 1000);
     },
@@ -47,16 +47,16 @@ const SettingsChoice = React.createClass({
         let value = event.target.value;
 
         console.log('SettingsChoice: Setting '+setting+' = '+value);
-        CameraCommands.setSetting(CameraConnection, setting, value);
+        CameraCommands.setSetting(setting, value);
         SettingsActions.setValue(setting, undefined); // Display spinner
 
         // Check if the command has been successfuly processed by the camera
         this.state.updateTimer = setInterval(() => {
-            if (this.props.currentValue) {
+            if (this.props.currentValue || this.props.readonly) {
                 clearInterval(this.state.updateTimer);
             }
             else {
-                CameraCommands.getSetting(CameraConnection, this.props.setting);
+                CameraCommands.getSetting(this.props.setting);
             }
         }, 1000);
     },
@@ -65,6 +65,8 @@ const SettingsChoice = React.createClass({
         let settingName = this.props.setting;
         let label = this.props.label;
         let currentValue = this.props.currentValue;
+
+        let isReadOnly = this.props.readonly;
 
         let selectOptions = [];
 
@@ -80,7 +82,7 @@ const SettingsChoice = React.createClass({
             input = <Spinner />;
         }
         else {
-            input = <select name={settingName} value={currentValue} onChange={this.handleChange}>{selectOptions}</select>;
+            input = <select name={settingName} value={currentValue} onChange={this.handleChange} disabled={isReadOnly}>{selectOptions}</select>;
         }
 
         return (

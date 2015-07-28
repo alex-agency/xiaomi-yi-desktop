@@ -15,7 +15,7 @@ export default class GetSettingChoicesResponse extends AbstractResponse {
         return (
             this._data.msg_id == 9 &&
             this._data.param &&
-            this._data.permission === 'settable' &&
+            (this._data.permission === 'settable' || this._data.permission === 'readonly') &&
             this._data.options
         );
     }
@@ -23,6 +23,7 @@ export default class GetSettingChoicesResponse extends AbstractResponse {
     process() {
         let setting = this._data.param;
         let options = this._data.options;
+        let permission = this._data.permission;
 
         console.log('GetSettingChoicesResponse: '+setting+' = '+options);
 
@@ -32,6 +33,6 @@ export default class GetSettingChoicesResponse extends AbstractResponse {
         }
 
         // Notify settings listeners of the new choices
-        SettingsActions.setChoices(setting, choices);
+        SettingsActions.setChoices(setting, choices, (permission === 'readonly'));
     }
 }

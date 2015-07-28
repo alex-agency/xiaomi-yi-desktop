@@ -1,3 +1,5 @@
+import CameraConnection from './CameraConnection';
+
 import GetBatteryLevelRequest from './packets/requests/GetBatteryLevelRequest';
 import GetSettingChoicesRequest from './packets/requests/GetSettingChoicesRequest';
 import GetSettingRequest from './packets/requests/GetSettingRequest';
@@ -10,32 +12,32 @@ class CameraCommands {
     constructor() {
     }
 
-    getBatteryLevel(connection) {
-        connection.send(new GetBatteryLevelRequest());
+    getBatteryLevel() {
+        CameraConnection.send(new GetBatteryLevelRequest());
     }
 
-    getSettingChoices(connection, setting) {
-        connection.send(new GetSettingChoicesRequest(setting));
+    getSettingChoices(setting) {
+        CameraConnection.send(new GetSettingChoicesRequest(setting));
     }
 
-    getSetting(connection, setting) {
-        connection.send(new GetSettingRequest(setting));
+    getSetting(setting) {
+        CameraConnection.send(new GetSettingRequest(setting));
     }
 
-    getSettings(connection) {
-        connection.send(new GetSettingsRequest());
+    getSettings() {
+        CameraConnection.send(new GetSettingsRequest());
     }
 
-    getSpace(connection, type) {
-        connection.send(new GetSpaceRequest(type));
+    getSpace(type) {
+        CameraConnection.send(new GetSpaceRequest(type));
     }
 
-    setSetting(connection, setting, value) {
-        connection.send(new SetSettingRequest(setting, value));
+    setSetting(setting, value) {
+        CameraConnection.send(new SetSettingRequest(setting, value));
     }
 
-    startSession(connection) {
-        connection.send(new StartSessionRequest());
+    startSession() {
+        CameraConnection.send(new StartSessionRequest());
     }
 }
 

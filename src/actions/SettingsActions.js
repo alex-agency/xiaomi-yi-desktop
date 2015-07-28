@@ -10,11 +10,12 @@ const SettingsAction = mcFly.createActions({
             value: value
         }
     },
-    setChoices: function(name, choices) {
+    setChoices: function(name, choices, readonly) {
         return {
             actionType: SETTINGS_UPDATE_CHOICES,
             name: name,
-            choices: choices
+            choices: choices,
+            readonly: readonly
         }
     }
 });

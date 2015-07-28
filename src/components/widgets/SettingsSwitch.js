@@ -1,6 +1,5 @@
 import React from 'react';
 
-import CameraConnection from '../../xiaomi-yi/CameraConnection';
 import CameraCommands from '../../xiaomi-yi/CameraCommands';
 
 // Actions
@@ -13,7 +12,8 @@ const SettingsSwitch = React.createClass({
     propTypes: {
         setting: React.PropTypes.string.isRequired,
         label: React.PropTypes.string.isRequired,
-        currentValue: React.PropTypes.string
+        currentValue: React.PropTypes.string,
+        readonly: React.PropTypes.bool
     },
 
     getInitialState: function() {
@@ -31,16 +31,16 @@ const SettingsSwitch = React.createClass({
         let value = event.target.checked ? 'on': 'off';
 
         console.log('SettingsSwitch: Setting '+setting+' = '+value);
-        CameraCommands.setSetting(CameraConnection, setting, value);
+        CameraCommands.setSetting(setting, value);
         SettingsActions.setValue(setting, undefined); // Display spinner
 
         // Check if the command has been successfuly processed by the camera
         this.state.updateTimer = setInterval(() => {
-            if (this.props.currentValue) {
+            if (this.props.currentValue || this.props.readonly) {
                 clearInterval(this.state.updateTimer);
             }
             else {
-                CameraCommands.getSetting(CameraConnection, this.props.setting);
+                CameraCommands.getSetting(this.props.setting);
             }
         }, 1000);
     },
@@ -51,6 +51,7 @@ const SettingsSwitch = React.createClass({
         let currentValue = this.props.currentValue;
 
         let isChecked = (currentValue === 'on');
+        let isReadOnly = this.props.readonly;
 
         // Display spinner if no current value
         let input;
@@ -58,7 +59,7 @@ const SettingsSwitch = React.createClass({
             input = <Spinner />;
         }
         else {
-            input = <input type="checkbox" name={settingName} checked={isChecked ? 'checked' : false}  onChange={this.handleChange} />;
+            input = <input type="checkbox" name={settingName} checked={isChecked ? 'checked' : false} onChange={this.handleChange} disabled={isReadOnly} />;
         }
 
         return (
