@@ -13,7 +13,8 @@ const SettingsSwitch = React.createClass({
         setting: React.PropTypes.string.isRequired,
         label: React.PropTypes.string.isRequired,
         currentValue: React.PropTypes.string,
-        readonly: React.PropTypes.bool
+        readonly: React.PropTypes.bool,
+        relatedSettings: React.PropTypes.array
     },
 
     getInitialState: function() {
@@ -22,8 +23,40 @@ const SettingsSwitch = React.createClass({
         };
     },
 
+    componentDidMount: function() {
+        this.startRefresh();
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+        this.startRefresh();
+    },
+
     componentWillUnmount: function() {
         clearInterval(this.state.updateTimer);
+    },
+
+    startRefresh: function() {
+        clearInterval(this.state.updateTimer);
+
+        // Check if the command has been successfuly processed by the camera
+        this.state.updateTimer = setInterval(() => {
+            if (this.props.currentValue) {
+                clearInterval(this.state.updateTimer);
+            }
+            else {
+                CameraCommands.getSetting(this.props.setting);
+            }
+        }, 500);
+    },
+
+    updateRelatedSettings: function() {
+        if (this.props.relatedSettings) {
+            for (let i=0; i < this.props.relatedSettings.length; i++) {
+                let setting = this.props.relatedSettings[i];
+                SettingsActions.setValue(setting, undefined); // Reset value
+                SettingsActions.setChoices(setting, {}, false); // Reset choices
+            }
+        }
     },
 
     handleChange: function(event) {
@@ -34,15 +67,7 @@ const SettingsSwitch = React.createClass({
         CameraCommands.setSetting(setting, value);
         SettingsActions.setValue(setting, undefined); // Display spinner
 
-        // Check if the command has been successfuly processed by the camera
-        this.state.updateTimer = setInterval(() => {
-            if (this.props.currentValue || this.props.readonly) {
-                clearInterval(this.state.updateTimer);
-            }
-            else {
-                CameraCommands.getSetting(this.props.setting);
-            }
-        }, 1000);
+        this.updateRelatedSettings();
     },
 
     render() {

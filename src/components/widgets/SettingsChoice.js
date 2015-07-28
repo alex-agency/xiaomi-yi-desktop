@@ -14,7 +14,8 @@ const SettingsChoice = React.createClass({
         label: React.PropTypes.string.isRequired,
         choices: React.PropTypes.object.isRequired,
         currentValue: React.PropTypes.string,
-        readonly: React.PropTypes.bool
+        readonly: React.PropTypes.bool,
+        relatedSettings: React.PropTypes.array
     },
 
     getInitialState: function() {
@@ -24,22 +25,42 @@ const SettingsChoice = React.createClass({
     },
 
     componentDidMount: function() {
-        CameraCommands.getSettingChoices(this.props.setting);
+        this.startRefresh();
+    },
 
-        // In case the camera doesn't response (seems to happen if multiple request
-        // are sent at the same time) retry every seconds until we get a response.
-        this.state.updateTimer = setInterval(() => {
-            if ((this.props.choices && Object.keys(this.props.choices).length) || this.props.readonly) {
-                clearInterval(this.state.updateTimer);
-            }
-            else {
-                CameraCommands.getSettingChoices(this.props.setting);
-            }
-        }, 1000);
+    componentDidUpdate: function(prevProps, prevState) {
+        this.startRefresh();
     },
 
     componentWillUnmount: function() {
         clearInterval(this.state.updateTimer);
+    },
+
+    startRefresh: function() {
+        clearInterval(this.state.updateTimer);
+        this.state.updateTimer = setInterval(() => {
+            if ((this.props.choices && Object.keys(this.props.choices).length) && this.props.currentValue) {
+                clearInterval(this.state.updateTimer);
+            }
+
+            if (!(this.props.choices && Object.keys(this.props.choices).length)) {
+                CameraCommands.getSettingChoices(this.props.setting);
+            }
+
+            if (!this.props.currentValue) {
+                CameraCommands.getSetting(this.props.setting);
+            }
+        }, 500);
+    },
+
+    updateRelatedSettings: function() {
+        if (this.props.relatedSettings) {
+            for (let i=0; i < this.props.relatedSettings.length; i++) {
+                let setting = this.props.relatedSettings[i];
+                SettingsActions.setValue(setting, undefined); // Reset value
+                SettingsActions.setChoices(setting, {}, false); // Reset choices
+            }
+        }
     },
 
     handleChange: function(event) {
@@ -50,15 +71,7 @@ const SettingsChoice = React.createClass({
         CameraCommands.setSetting(setting, value);
         SettingsActions.setValue(setting, undefined); // Display spinner
 
-        // Check if the command has been successfuly processed by the camera
-        this.state.updateTimer = setInterval(() => {
-            if (this.props.currentValue || this.props.readonly) {
-                clearInterval(this.state.updateTimer);
-            }
-            else {
-                CameraCommands.getSetting(this.props.setting);
-            }
-        }, 1000);
+        this.updateRelatedSettings();
     },
 
     render() {

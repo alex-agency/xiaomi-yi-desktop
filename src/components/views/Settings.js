@@ -37,24 +37,26 @@ const Settings = React.createClass({
         return this.state.settings[name] ? this.state.settings[name].readonly : false;
     },
 
-    createChoice: function(setting, label) {
+    createChoice: function(setting, label, relatedSettings) {
         return (
             <SettingsChoice
                 setting={setting}
                 label={label}
                 currentValue={this.getValue(setting)}
                 choices={this.getChoices(setting)}
-                readonly={this.isReadOnly(setting)} />
+                readonly={this.isReadOnly(setting)}
+                relatedSettings={relatedSettings} />
         )
     },
 
-    createSwitch: function(setting, label) {
+    createSwitch: function(setting, label, relatedSettings) {
         return (
             <SettingsSwitch
                 setting={setting}
                 label={label}
                 currentValue={this.getValue(setting)}
-                readonly={this.isReadOnly(setting)} />
+                readonly={this.isReadOnly(setting)}
+                relatedSettings={relatedSettings} />
         )
     },
 
@@ -62,31 +64,31 @@ const Settings = React.createClass({
         return (
             <div className="panel settings-container">
                 <SettingsSection name="Video">
-                    {this.createChoice('video_standard', 'Video standard')}
-                    {this.createChoice('video_resolution', 'Video resolution')}
+                    {this.createChoice('video_standard', 'Video standard', ['video_resolution', 'video_stamp'])}
+                    {this.createChoice('video_resolution', 'Video resolution', ['video_stamp'])}
                     {this.createChoice('video_quality', 'Video quality')}
                     {this.createChoice('video_stamp', 'Enable video stamp (date and time)')}
-                    {this.createChoice('timelapse_video', 'Enable video timelapse')}
+                    {this.createChoice('timelapse_video', 'Video timelapse interval')}
                     {this.createChoice('video_rotate', 'Enable 180° video rotation')}
                 </SettingsSection>
 
                 <SettingsSection name="Photo">
+                    {this.createChoice('capture_mode', 'Photo capture mode', ['photo_size', 'photo_stamp', 'timelapse_photo'])}
                     {this.createChoice('photo_size', 'Photo resolution')}
                     {this.createChoice('photo_quality', 'Photo quality')}
                     {this.createChoice('photo_stamp', 'Enable photo stamp (date and time)')}
                     {this.createChoice('timelapse_photo', 'Enable photo timelapse')}
+                    {this.createChoice('precise_cont_time', 'Interval between frames in timelapse mode')}
+                    {this.createChoice('precise_selftime', 'Delay before capture in timer mode')}
+                    {this.createChoice('burst_capture_number', 'Amount of photos taken in burst mode')}
                 </SettingsSection>
 
                 <SettingsSection name="Capture">
-                    {this.createChoice('capture_mode', 'Capture mode')}
                     {this.createSwitch('auto_low_light', 'Enable auto low-light')}
                     {this.createSwitch('loop_record', 'Enable loop recording')}
                     {this.createSwitch('emergency_file_backup', 'Emergency file backup')}
                     {this.createSwitch('warp_enable', 'Enable warp (disable fisheye effect)')}
                     {this.createChoice('meter_mode', 'Exposure/White balance preset')}
-                    {this.createChoice('precise_cont_time', 'Delay between frames in timelapse mode')}
-                    {this.createChoice('precise_selftime', 'Delay before capture in timer mode')}
-                    {this.createChoice('burst_capture_number', 'Amount of photos taken in burst mode')}
                 </SettingsSection>
 
                 <SettingsSection name="System">
